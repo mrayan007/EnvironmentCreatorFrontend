@@ -6,6 +6,7 @@ using UnityEngine.Networking;
 public class ApiClient : MonoBehaviour
 {
     private string baseUrl = "http://localhost:5021";
+    public string token { get; private set; }
 
     private async Task<string> ApiCall(string url, string method, string jsonData = null, string token = null)
     {
@@ -53,5 +54,24 @@ public class ApiClient : MonoBehaviour
         string url = $"{baseUrl}/account/register";
 
         await ApiCall(url, "POST", request);
+    }
+
+    public async void Login()
+    {
+        string username = "test1";
+        string password = "TestPassword1!";
+
+        var login = new LoginDto(username, password);
+        var request = JsonUtility.ToJson(login);
+
+        Debug.Log(request);
+
+        string url = $"{baseUrl}/account/login";
+
+        var response = await ApiCall(url, "POST", request);
+        LoginResponseDto responseDto = JsonUtility.FromJson<LoginResponseDto>(response);
+        token = responseDto.token;
+
+        Debug.Log(token);
     }
 }

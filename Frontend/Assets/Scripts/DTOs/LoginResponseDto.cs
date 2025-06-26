@@ -1,4 +1,5 @@
+[System.Serializable]
 public class LoginResponseDto
 {
-    public string token {  get; private set; }
+    public string token;
 }
