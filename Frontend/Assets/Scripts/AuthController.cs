@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class AuthController : MonoBehaviour
 {
@@ -13,5 +14,15 @@ public class AuthController : MonoBehaviour
         string password = passwordInput.text;
 
         statusText.text = await ApiClient.instance.Register(username, password);
+    }
+
+    public void Login()
+    {
+        string username = usernameInput.text;
+        string password = passwordInput.text;
+
+        ApiClient.instance.Login(username, password);
+
+        SceneManager.LoadScene("EnvironmentScreen");
     }
 }

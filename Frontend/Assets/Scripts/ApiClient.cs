@@ -70,11 +70,8 @@ public class ApiClient : MonoBehaviour
         return await ApiCall(url, "POST", request);
     }
 
-    public async void Login()
+    public async void Login(string username, string password)
     {
-        string username = "test1";
-        string password = "TestPassword1!";
-
         var login = new LoginDto(username, password);
         var request = JsonUtility.ToJson(login);
 
@@ -84,23 +81,14 @@ public class ApiClient : MonoBehaviour
 
         var response = await ApiCall(url, "POST", request);
 
-        if (!string.IsNullOrEmpty(response))
-        {
-            LoginResponseDto responseDto = JsonUtility.FromJson<LoginResponseDto>(response);
-            accessToken = responseDto.token;
+        LoginResponseDto responseDto = JsonUtility.FromJson<LoginResponseDto>(response);
+        accessToken = responseDto.token;
 
-            Debug.Log(accessToken);
-
-            SceneManager.LoadScene("EnvironmentScreen");
-        }
+        Debug.Log(accessToken);
     }
 
-    public async void CreateEnvironment()
+    public async Task<string> CreateEnvironment(string name, double maxHeight, double maxWidth)
     {
-        string name = "testEnv1";
-        double maxHeight = 350;
-        double maxWidth = 350;
-
         var environment = new EnvironmentDto(name, maxHeight, maxWidth);
         var request = JsonUtility.ToJson(environment);
 
@@ -108,7 +96,7 @@ public class ApiClient : MonoBehaviour
 
         string url = $"{baseUrl}/environments/create";
 
-        await ApiCall(url, "POST", request, accessToken);
+        return await ApiCall(url, "POST", request, accessToken);
     }
 
     public async Task<List<string>> GetEnvironments()

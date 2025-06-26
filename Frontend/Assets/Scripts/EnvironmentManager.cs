@@ -1,10 +1,20 @@
+using TMPro;
 using UnityEngine;
 
 public class EnvironmentManager : MonoBehaviour
 {
-   public void CreateEnvironment()
+    public TMP_InputField envNameInput;
+    public TMP_InputField envMaxHeight;
+    public TMP_InputField envMaxWidth;
+    public TMP_Text statusText;
+
+   public async void CreateEnvironment()
     {
-        ApiClient.instance.CreateEnvironment();
+        string name = envNameInput.text;
+        double maxHeight = double.Parse(envMaxHeight.text);
+        double maxWidth = double.Parse(envMaxWidth.text);
+
+        statusText.text = await ApiClient.instance.CreateEnvironment(name, maxHeight, maxWidth);
     }
 
     public async void GetEnvironments()
