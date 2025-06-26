@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class ApiClient : MonoBehaviour
 {
     private string baseUrl = "http://localhost:5021";
-    public string token { get; private set; }
+    public string accessToken { get; private set; }
 
     private async Task<string> ApiCall(string url, string method, string jsonData = null, string token = null)
     {
@@ -74,11 +74,27 @@ public class ApiClient : MonoBehaviour
         if (!string.IsNullOrEmpty(response))
         {
             LoginResponseDto responseDto = JsonUtility.FromJson<LoginResponseDto>(response);
-            token = responseDto.token;
+            accessToken = responseDto.token;
 
-            Debug.Log(token);
+            Debug.Log(accessToken);
 
-            SceneManager.LoadScene("EnvironmentScreen");
+            //SceneManager.LoadScene("EnvironmentScreen");
         }
+    }
+
+    public async void CreateEnvironment()
+    {
+        string name = "testEnv1";
+        double maxHeight = 350;
+        double maxWidth = 350;
+
+        var environment = new EnvironmentDto(name, maxHeight, maxWidth);
+        var request = JsonUtility.ToJson(environment);
+
+        Debug.Log(request);
+
+        string url = $"{baseUrl}/environments/create";
+
+        await ApiCall(url, "POST", request, accessToken);
     }
 }
