@@ -1,8 +1,10 @@
+using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class ApiClient : MonoBehaviour
 {
@@ -110,5 +112,22 @@ public class ApiClient : MonoBehaviour
         string url = $"{baseUrl}/environments/create";
 
         await ApiCall(url, "POST", request, accessToken);
+    }
+
+    public async Task<List<string>> GetEnvironments()
+    {
+        string url = $"{baseUrl}/environments/all";
+
+        Debug.Log(accessToken);
+
+        var response = await ApiCall(url, "GET", null, accessToken);
+
+        if (!string.IsNullOrEmpty(response))
+        {
+            var environments = JsonHelper.FromJson<EnvironmentNamesDto>(JsonHelper.FixJsonArray(response));
+            return environments.Select(e => e.name).ToList();
+        }
+
+        return new List<string>();
     }
 }
