@@ -130,4 +130,18 @@ public class ApiClient : MonoBehaviour
 
         return new List<string>();
     }
+
+    public async Task<EnvironmentResponseDto> GetEnvironmentByName(string name)
+    {
+        string url = $"{baseUrl}/environments/{name}";
+        var response = await ApiCall(url, "GET", null, accessToken);
+
+        if (!string.IsNullOrEmpty(response))
+        {
+            EnvironmentResponseDto environment = JsonUtility.FromJson<EnvironmentResponseDto>(response);
+            return environment;
+        }
+
+        return null;
+    }
 }

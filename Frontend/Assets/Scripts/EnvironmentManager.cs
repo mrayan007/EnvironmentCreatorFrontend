@@ -15,4 +15,9 @@ public class EnvironmentManager : MonoBehaviour
             Debug.Log("Environment name: " + env);
         }
     }
+
+    public async void EnterWorld()
+    {
+        var env = await ApiClient.instance.GetEnvironmentByName("testEnv");
+    }
 }
