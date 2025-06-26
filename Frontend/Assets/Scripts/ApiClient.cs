@@ -6,6 +6,20 @@ using UnityEngine.SceneManagement;
 
 public class ApiClient : MonoBehaviour
 {
+    public static ApiClient instance { get; private set; }
+    void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
+        DontDestroyOnLoad(this);
+    }
+
     private string baseUrl = "http://localhost:5021";
     public string accessToken { get; private set; }
 
@@ -78,7 +92,7 @@ public class ApiClient : MonoBehaviour
 
             Debug.Log(accessToken);
 
-            //SceneManager.LoadScene("EnvironmentScreen");
+            SceneManager.LoadScene("EnvironmentScreen");
         }
     }
 
