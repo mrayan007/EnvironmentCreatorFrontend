@@ -52,17 +52,14 @@ public class ApiClient : MonoBehaviour
             }
             else
             {
-                Debug.Log("Fout bij API-aanroep: " + request.error);
-                return null;
+                Debug.Log("Fout bij API-aanroep: " + request.downloadHandler.text);
+                return request.downloadHandler.text;
             }
         }
     }
 
-    public async void Register()
+    public async Task<string> Register(string username, string password)
     {
-        string username = "test1";
-        string password = "TestPassword1!";
-
         var register = new RegisterDto(username, password);
         var request = JsonUtility.ToJson(register);
 
@@ -70,7 +67,7 @@ public class ApiClient : MonoBehaviour
 
         string url = $"{baseUrl}/account/register";
 
-        await ApiCall(url, "POST", request);
+        return await ApiCall(url, "POST", request);
     }
 
     public async void Login()
