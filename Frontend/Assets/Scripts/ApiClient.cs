@@ -1,0 +1,57 @@
+using System.Text;
+using System.Threading.Tasks;
+using UnityEngine;
+using UnityEngine.Networking;
+
+public class ApiClient : MonoBehaviour
+{
+    private string baseUrl = "http://localhost:5021";
+
+    private async Task<string> ApiCall(string url, string method, string jsonData = null, string token = null)
+    {
+        using (UnityWebRequest request = new UnityWebRequest(url, method))
+        {
+            if (!string.IsNullOrEmpty(jsonData))
+            {
+                byte[] jsonToSend = Encoding.UTF8.GetBytes(jsonData);
+                request.uploadHandler = new UploadHandlerRaw(jsonToSend);
+            }
+
+            request.downloadHandler = new DownloadHandlerBuffer();
+            request.SetRequestHeader("Content-Type", "application/json");
+
+            if (!string.IsNullOrEmpty(token))
+            {
+                request.SetRequestHeader("Authorization", "Bearer " + token);
+            }
+
+            await request.SendWebRequest();
+            if (request.result == UnityWebRequest.Result.Success)
+            {
+                Debug.Log("API-aanroep is successvol: " + request.downloadHandler.text);
+
+                return request.downloadHandler.text;
+            }
+            else
+            {
+                Debug.Log("Fout bij API-aanroep: " + request.error);
+                return null;
+            }
+        }
+    }
+
+    public async void Register()
+    {
+        string username = "test1";
+        string password = "TestPassword1!";
+
+        var register = new RegisterDto(username, password);
+        var request = JsonUtility.ToJson(register);
+
+        Debug.Log(request);
+
+        string url = $"{baseUrl}/account/register";
+
+        await ApiCall(url, "POST", request);
+    }
+}
