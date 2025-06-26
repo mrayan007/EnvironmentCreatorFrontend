@@ -2,6 +2,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 public class ApiClient : MonoBehaviour
 {
@@ -69,9 +70,15 @@ public class ApiClient : MonoBehaviour
         string url = $"{baseUrl}/account/login";
 
         var response = await ApiCall(url, "POST", request);
-        LoginResponseDto responseDto = JsonUtility.FromJson<LoginResponseDto>(response);
-        token = responseDto.token;
 
-        Debug.Log(token);
+        if (!string.IsNullOrEmpty(response))
+        {
+            LoginResponseDto responseDto = JsonUtility.FromJson<LoginResponseDto>(response);
+            token = responseDto.token;
+
+            Debug.Log(token);
+
+            SceneManager.LoadScene("EnvironmentScreen");
+        }
     }
 }
