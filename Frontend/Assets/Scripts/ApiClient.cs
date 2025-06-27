@@ -70,7 +70,7 @@ public class ApiClient : MonoBehaviour
         return await ApiCall(url, "POST", request);
     }
 
-    public async void Login(string username, string password)
+    public async Task Login(string username, string password)
     {
         var login = new LoginDto(username, password);
         var request = JsonUtility.ToJson(login);
@@ -113,7 +113,7 @@ public class ApiClient : MonoBehaviour
             return environments.Select(e => e.name).ToList();
         }
 
-        return new List<string>();
+        return null;
     }
 
     public async Task<EnvironmentResponseDto> GetEnvironmentByName(string name)
@@ -128,5 +128,11 @@ public class ApiClient : MonoBehaviour
         }
 
         return null;
+    }
+
+    public async Task<string> DeleteEnvironment(string name)
+    {
+        string url = $"{baseUrl}/environments/{name}";
+        return await ApiCall(url, "DELETE", null, accessToken);
     }
 }

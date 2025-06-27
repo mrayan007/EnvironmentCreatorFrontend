@@ -1,33 +1,57 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnvironmentManager : MonoBehaviour
 {
+   
     public TMP_InputField envNameInput;
     public TMP_InputField envMaxHeight;
     public TMP_InputField envMaxWidth;
+
+    public TMP_Dropdown userEnvironments;
+
     public TMP_Text statusText;
 
-   public async void CreateEnvironment()
+    private void Start()
+    {
+        RefreshDropdown();
+    }
+
+    public async void CreateEnvironment()
     {
         string name = envNameInput.text;
         double maxHeight = double.Parse(envMaxHeight.text);
         double maxWidth = double.Parse(envMaxWidth.text);
 
         statusText.text = await ApiClient.instance.CreateEnvironment(name, maxHeight, maxWidth);
+
+        RefreshDropdown();
     }
 
-    public async void GetEnvironments()
+    public async void RefreshDropdown()
     {
+        userEnvironments.ClearOptions();
+
         var environments = await ApiClient.instance.GetEnvironments();
-        foreach (var env in environments)
+
+        if (environments.Count > 0)
         {
-            Debug.Log("Environment name: " + env);
+            userEnvironments.AddOptions(environments);
+        }
+        else
+        {
+            statusText.text = "No worlds yet.";
         }
     }
 
-    public async void EnterWorld()
+    public async void DeleteEnvironment()
     {
-        var env = await ApiClient.instance.GetEnvironmentByName("testEnv");
+        int i = userEnvironments.value;
+        string envName = userEnvironments.options[i].text;
+
+        statusText.text = await ApiClient.instance.DeleteEnvironment(envName);
+
+        RefreshDropdown();
     }
 }

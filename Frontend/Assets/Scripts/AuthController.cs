@@ -16,12 +16,12 @@ public class AuthController : MonoBehaviour
         statusText.text = await ApiClient.instance.Register(username, password);
     }
 
-    public void Login()
+    public async void Login()
     {
         string username = usernameInput.text;
         string password = passwordInput.text;
 
-        ApiClient.instance.Login(username, password);
+        await ApiClient.instance.Login(username, password);
 
         SceneManager.LoadScene("EnvironmentScreen");
     }
