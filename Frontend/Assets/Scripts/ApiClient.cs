@@ -121,13 +121,8 @@ public class ApiClient : MonoBehaviour
         string url = $"{baseUrl}/environments/{name}";
         var response = await ApiCall(url, "GET", null, accessToken);
 
-        if (!string.IsNullOrEmpty(response))
-        {
-            EnvironmentResponseDto environment = JsonUtility.FromJson<EnvironmentResponseDto>(response);
-            return environment;
-        }
-
-        return null;
+        EnvironmentResponseDto environment = JsonUtility.FromJson<EnvironmentResponseDto>(response);
+        return environment;
     }
 
     public async Task<string> DeleteEnvironment(string name)

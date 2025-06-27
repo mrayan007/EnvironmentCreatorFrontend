@@ -45,6 +45,14 @@ public class EnvironmentManager : MonoBehaviour
         }
     }
 
+    public async void EnterEnvironment()
+    {
+        int i = userEnvironments.value;
+        string envName = userEnvironments.options[i].text;
+
+        await ApiClient.instance.GetEnvironmentByName(envName);
+    }
+
     public async void DeleteEnvironment()
     {
         int i = userEnvironments.value;

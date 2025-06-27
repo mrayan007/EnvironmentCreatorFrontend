@@ -8,4 +8,5 @@ public class ObjectDto
     public float scaleY;
     public float rotationZ;
     public int sortingLayer;
+    public int environmentId;
 }
