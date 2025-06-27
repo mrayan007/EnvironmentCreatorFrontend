@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class EnvironmentManager : MonoBehaviour
@@ -50,7 +51,10 @@ public class EnvironmentManager : MonoBehaviour
         int i = userEnvironments.value;
         string envName = userEnvironments.options[i].text;
 
-        await ApiClient.instance.GetEnvironmentByName(envName);
+        var environment = await ApiClient.instance.GetEnvironmentByName(envName);
+        CurrentEnvironment.currentEnvironment = environment;
+
+        SceneManager.LoadScene("World");
     }
 
     public async void DeleteEnvironment()

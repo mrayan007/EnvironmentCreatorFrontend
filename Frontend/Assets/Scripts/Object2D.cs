@@ -6,6 +6,8 @@ public class Object2D : MonoBehaviour
 {
     public ObjectManager objectManager;
 
+    public string prefabId;
+
     public bool isDragging = false;
 
     public void Update()

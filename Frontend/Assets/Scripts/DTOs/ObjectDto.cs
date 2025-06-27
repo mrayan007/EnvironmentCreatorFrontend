@@ -1,7 +1,7 @@
 [System.Serializable]
 public class ObjectDto
 {
-    public int prefabId;
+    public string prefabId;
     public float positionX;
     public float positionY;
     public float scaleX;

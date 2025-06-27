@@ -130,4 +130,14 @@ public class ApiClient : MonoBehaviour
         string url = $"{baseUrl}/environments/{name}";
         return await ApiCall(url, "DELETE", null, accessToken);
     }
+
+    public async Task AddObject(ObjectDto objectDto)
+    {
+        var request = JsonUtility.ToJson(objectDto);
+        Debug.Log(objectDto);
+
+        string url = $"{baseUrl}/environments/object";
+
+        await ApiCall(url, "POST", request, accessToken);
+    }
 }
