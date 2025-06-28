@@ -22,7 +22,7 @@ public class AuthController : MonoBehaviour
         string password = passwordInput.text;
 
         await ApiClient.instance.Login(username, password);
-
+        
         SceneManager.LoadScene("EnvironmentScreen");
     }
 }

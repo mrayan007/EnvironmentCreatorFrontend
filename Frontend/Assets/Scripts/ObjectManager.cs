@@ -108,4 +108,9 @@ public class ObjectManager : MonoBehaviour
 
         Debug.Log("New objects saved.");
     }
+
+    public void Exit()
+    {
+        SceneManager.LoadScene("EnvironmentScreen");
+    }
 }

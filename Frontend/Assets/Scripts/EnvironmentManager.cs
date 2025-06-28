@@ -66,4 +66,9 @@ public class EnvironmentManager : MonoBehaviour
 
         RefreshDropdown();
     }
+
+    public void Exit()
+    {
+        SceneManager.LoadScene("LoginScreen");
+    }
 }

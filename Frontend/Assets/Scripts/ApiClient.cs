@@ -22,7 +22,7 @@ public class ApiClient : MonoBehaviour
         DontDestroyOnLoad(this);
     }
 
-    private string baseUrl = "http://localhost:5021";
+    private string baseUrl = "https://avansict2234649.azurewebsites.net";
     public string accessToken { get; private set; }
 
     private async Task<string> ApiCall(string url, string method, string jsonData = null, string token = null)

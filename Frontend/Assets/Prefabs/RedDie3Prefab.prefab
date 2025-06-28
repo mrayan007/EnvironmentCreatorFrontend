@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7777579705381657560}
   - component: {fileID: 8182785779547557210}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -76,12 +76,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 4460547868081630539, guid: 1ff0ac54d4a2acf4b81cc4ea70fff985, type: 3}
+  m_Sprite: {fileID: 4460547868081630539, guid: 95f01017b7d777341a78740296ff37fa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.97, y: 1.97}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 6962084868220815341}
   - component: {fileID: 5634909332409542170}
   - component: {fileID: 206695286524191361}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: RedDie3Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,6 +134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectManager: {fileID: 0}
+  prefabId: 
   isDragging: 0
 --- !u!61 &206695286524191361
 BoxCollider2D:
